@@ -53,18 +53,18 @@ https://mindpulse-ai-2-qnb7.onrender.com
 ## 🔄 How It Works
 
 text
-User Input
-    ↓
-Frontend Form
-    ↓
-FastAPI Backend
-    ↓
-Data Preprocessing
-    ↓
-Trained ML Model
-    ↓
-Mental Health Score
-    ↓
-Behavioral Signals
-    ↓
-Personalized Wellness Insights
+User Input -> Frontend Form -> FastAPI Backend -> Data Preprocessing -> Trained ML Model -> Mental Health Score -> Behavioral Signals -> Personalized Wellness Insights
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
