@@ -44,7 +44,7 @@ const DEFAULT_STRESS_VALUE = ""; // no default — the person must pick one
       backend. Kept separate from every DOM/rendering concern.
    ========================================================= */
 
-const API_BASE_URL = "http://127.0.0.1:2200";
+const API_BASE_URL = "https://mindpulse-ai-1-cmto.onrender.com";
 
 class ApiError extends Error {
   constructor(kind, message) {
