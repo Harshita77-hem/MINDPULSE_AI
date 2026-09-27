@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindPulse AI — ML Mental Health Score Predictor</title>
+    <meta
+      name="description"
+      content="MindPulse AI estimates a student's mental health score from lifestyle, academic and social-media behaviour using a trained machine learning model."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="ambient-field"></div>
+
+      <div class="content-layer">
+        <!-- ============ NAVBAR ============ -->
+        <header class="navbar">
+          <div class="navbar-inner">
+            <a href="#top" class="navbar-brand">
+              <span class="navbar-brand-mark">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="navbar-brand-text">
+                <span class="navbar-title">MindPulse AI</span>
+                <span class="navbar-subtitle">ML Prediction System</span>
+              </span>
+            </a>
+            <div id="status-dot" class="status-dot status-dot--checking">
+              <span class="status-dot-indicator"></span>
+              <span id="status-dot-label">Checking API…</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- ============ HERO ============ -->
+        <section id="top" class="hero">
+          <span class="hero-kicker">MindPulse AI</span>
+          <h1 class="hero-heading">AI-powered mental health score prediction</h1>
+          <p class="hero-sub">
+            Enter behavioral, lifestyle and academic information to generate a
+            machine-learning prediction.
+          </p>
+        </section>
+
+        <!-- ============ PREDICTION WORKSPACE ============ -->
+        <section id="predictor" class="section workspace-section">
+          <div class="workspace-grid">
+            <!-- ---- Input form ---- -->
+            <div class="glass-panel workspace-form-panel">
+              <form id="predict-form" class="predict-form" novalidate>
+                <fieldset class="field-group" aria-label="Profile">
+                  <div class="field-legend">
+                    <span class="field-legend-badge">01</span>
+                    <span class="field-legend-text">Profile</span>
+                  </div>
+                  <div class="field-grid">
+                    <label class="field" data-field="age">
+                      <span class="field-label">Age</span>
+                      <input type="number" id="field-age" min="10" max="100" step="1" placeholder="e.g. 21" />
+                      <span class="field-hint">10–100</span>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="gender">
+                      <span class="field-label">Gender</span>
+                      <select id="field-gender"></select>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="country">
+                      <span class="field-label">Country</span>
+                      <select id="field-country"></select>
+                      <span class="field-hint">Grouped internally into top-country categories</span>
+                      <span class="field-error"></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="field-group" aria-label="Academic and digital habits">
+                  <div class="field-legend">
+                    <span class="field-legend-badge">02</span>
+                    <span class="field-legend-text">Academic &amp; digital habits</span>
+                  </div>
+                  <div class="field-grid">
+                    <label class="field" data-field="academic_level">
+                      <span class="field-label">Academic level</span>
+                      <select id="field-academic_level"></select>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="most_used_platform">
+                      <span class="field-label">Most-used platform</span>
+                      <select id="field-most_used_platform"></select>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="purpose_of_use">
+                      <span class="field-label">Primary purpose</span>
+                      <select id="field-purpose_of_use"></select>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="avg_daily_usage_hours">
+                      <span class="field-label">Avg. daily screen time</span>
+                      <input type="number" id="field-avg_daily_usage_hours" min="0" max="24" step="0.1" placeholder="0.0" />
+                      <span class="field-hint">Hours per day</span>
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="daily_unlocks">
+                      <span class="field-label">Daily phone unlocks</span>
+                      <input type="number" id="field-daily_unlocks" min="0" step="1" placeholder="e.g. 60" />
+                      <span class="field-error"></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="field-group" aria-label="Lifestyle and stress">
+                  <div class="field-legend">
+                    <span class="field-legend-badge">03</span>
+                    <span class="field-legend-text">Lifestyle &amp; stress</span>
+                  </div>
+                  <div class="field-grid">
+                    <label class="field" data-field="study_hours">
+                      <span class="field-label">Study hours / day</span>
+                      <input type="number" id="field-study_hours" min="0" max="24" step="0.5" placeholder="0.0" />
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="physical_activity_hours">
+                      <span class="field-label">Physical activity / day</span>
+                      <input type="number" id="field-physical_activity_hours" min="0" max="24" step="0.5" placeholder="0.0" />
+                      <span class="field-error"></span>
+                    </label>
+
+                    <label class="field" data-field="sleep_hours_per_night">
+                      <span class="field-label">Sleep / night</span>
+                      <input type="number" id="field-sleep_hours_per_night" min="0" max="24" step="0.5" placeholder="0.0" />
+                      <span class="field-error"></span>
+                    </label>
+                  </div>
+
+                  <div class="field field--segmented" data-field="stress_level">
+                    <span class="field-label">Perceived stress level</span>
+                    <div class="segmented-group" role="group" aria-label="Perceived stress level">
+                      <button type="button" class="segmented-option" data-value="Low">Low</button>
+                      <button type="button" class="segmented-option" data-value="Medium">Medium</button>
+                      <button type="button" class="segmented-option" data-value="High">High</button>
+                      <button type="button" class="segmented-option" data-value="Very High">Very High</button>
+                    </div>
+                    <input type="hidden" id="field-stress_level" value="" />
+                    <span class="field-error"></span>
+                  </div>
+                </fieldset>
+
+                <button type="submit" id="predict-submit" class="btn btn-primary btn-full predict-submit">
+                  Read my signal
+                </button>
+              </form>
+            </div>
+
+            <!-- ---- Result panel ---- -->
+            <div class="workspace-result-panel">
+              <div id="result-card" class="result-card">
+                <div class="result-card-label">
+                  <span>Model output</span>
+                </div>
+
+                <div class="gauge-wrap">
+                  <svg viewBox="0 0 220 210" class="gauge-svg">
+                    <g class="gauge-ticks">
+                      <line x1="62.5" y1="192.27" x2="58.0" y2="200.07" />
+                      <line x1="32.18" y1="164.49" x2="24.81" y2="169.65" />
+                      <line x1="16.44" y1="126.5" x2="7.58" y2="128.06" />
+                      <line x1="18.24" y1="85.41" x2="9.54" y2="83.08" />
+                      <line x1="37.23" y1="48.94" x2="30.33" y2="43.15" />
+                      <line x1="69.85" y1="23.9" x2="66.05" y2="15.74" />
+                      <line x1="110.0" y1="15.0" x2="110.0" y2="6.0" />
+                      <line x1="150.15" y1="23.9" x2="153.95" y2="15.74" />
+                      <line x1="182.77" y1="48.94" x2="189.67" y2="43.15" />
+                      <line x1="201.76" y1="85.41" x2="210.46" y2="83.08" />
+                      <line x1="203.56" y1="126.5" x2="212.42" y2="128.06" />
+                      <line x1="187.82" y1="164.49" x2="195.19" y2="169.65" />
+                      <line x1="157.5" y1="192.27" x2="162.0" y2="200.07" />
+                    </g>
+                    <path class="gauge-track" d="M68 182.75 A84 84 0 1 1 152 182.75" pathLength="100" />
+                    <path id="gauge-progress" class="gauge-progress" d="M68 182.75 A84 84 0 1 1 152 182.75" pathLength="100" />
+                  </svg>
+                </div>
+
+                <div id="result-idle" class="result-status">
+                  <h3 class="result-status-heading">Your score will appear here</h3>
+                  <p class="result-status-sub">
+                    Fill in the form and submit to generate a predicted mental
+                    health score from 0–10.
+                  </p>
+                </div>
+
+                <div id="result-loading" class="result-status" hidden>
+                  <div class="signal-spinner"><span></span><span></span></div>
+                  <h3 class="result-status-heading">Reading the signal…</h3>
+                  <p class="result-status-sub">Running your habits through the model.</p>
+                </div>
+
+                <div id="result-error" class="result-status result-status--error" hidden>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <line x1="12" y1="9" x2="12" y2="13" stroke-linecap="round" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" stroke-linecap="round" />
+                  </svg>
+                  <h3 id="result-error-title" class="result-status-heading"></h3>
+                  <p id="result-error-detail" class="result-status-sub"></p>
+                  <button type="button" id="result-retry" class="btn btn-ghost btn-ghost--dark">Try again</button>
+                </div>
+
+                <div id="result-success" class="result-status" hidden>
+                  <div class="gauge-value">
+                    <span id="gauge-number" class="gauge-number">0.0</span>
+                    <span class="gauge-unit">/10</span>
+                  </div>
+                  <p class="result-status-sub">Predicted mental health score</p>
+                  <p class="result-footnote">Generated by the trained ML model</p>
+                  <p id="result-timestamp" class="result-timestamp"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---- Prediction summary + behavioral signals ---- -->
+          <div id="signals-wrap" class="signals-wrap" hidden>
+            <div class="signals-head">
+              <h3>Behavioral signals</h3>
+              <p>
+                A visual summary of the profile you submitted — not a claim about what
+                caused the predicted score.
+              </p>
+            </div>
+
+            <div id="signals-grid" class="signals-grid"></div>
+          </div>
+
+          <!-- ---- Personalized wellness insights ---- -->
+          <div id="wellness-wrap" class="signals-wrap" hidden>
+            <div class="signals-head">
+              <h3>Personalized wellness insights</h3>
+              <p>
+                Based on the information you provided, here are some practical
+                habits that may support your overall wellbeing.
+              </p>
+            </div>
+
+            <div id="wellness-grid" class="wellness-grid"></div>
+          </div>
+        </section>
+
+        <!-- ============ FOOTER ============ -->
+        <footer class="site-footer">
+          <div class="site-footer-inner">
+            <p class="site-footer-title">MindPulse AI — Machine Learning Mental Health Score Predictor</p>
+            <p class="site-footer-note">Built as an educational ML project.</p>
+            <p class="site-footer-meta">FastAPI backend, plain HTML/CSS/JS frontend</p>
+          </div>
+        </footer>
+      </div>
+
+      <button type="button" id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+          <path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
